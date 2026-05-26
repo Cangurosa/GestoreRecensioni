@@ -18,7 +18,7 @@ public class Categoria {
     private String genere;
 
     //mapping
-    @ManyToMany (mappedBy = "contenuti")
+    @ManyToMany (mappedBy = "categorie")
     private List<Contenuto> contenuti;
 
 

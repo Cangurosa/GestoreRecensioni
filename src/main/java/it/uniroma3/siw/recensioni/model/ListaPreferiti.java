@@ -1,6 +1,7 @@
 package it.uniroma3.siw.recensioni.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,10 +18,8 @@ public class ListaPreferiti {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nome;
 
-    //mapping
     @ManyToOne
     @JoinColumn(name = "utente_id")
     private Utente utente;
@@ -31,45 +30,6 @@ public class ListaPreferiti {
     joinColumns = @JoinColumn(name = "lista_id"),
     inverseJoinColumns = @JoinColumn(name = "contenuto_id"))
     private List<Contenuto> contenuti;
-
-
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        result = prime * result + ((utente == null) ? 0 : utente.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ListaPreferiti other = (ListaPreferiti) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        if (utente == null) {
-            if (other.utente != null)
-                return false;
-        } else if (!utente.equals(other.utente))
-            return false;
-        return true;
-    }
 
     public Long getId() {
         return id;
@@ -95,7 +55,23 @@ public class ListaPreferiti {
         this.utente = utente;
     }
 
+    public List<Contenuto> getContenuti() {
+        return contenuti;
+    }
 
+    public void setContenuti(List<Contenuto> contenuti) {
+        this.contenuti = contenuti;
+    }
 
-    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ListaPreferiti that = (ListaPreferiti) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getNome(), that.getNome()) && Objects.equals(getUtente(), that.getUtente()) && Objects.equals(getContenuti(), that.getContenuti());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getUtente(), getContenuti());
+    }
 }

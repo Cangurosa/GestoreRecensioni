@@ -11,15 +11,39 @@ public class Contenuto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nome;
+    private String titolo;
 
     private String descrizione;
-
-    @ManyToOne
-    private Categoria categoria;
+    private Tipo tipo;
+    private Genere genere;
+    private String img;
 
     @OneToMany(mappedBy = "contenuto")
     private List<Recensione> recensioni;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public Genere getGenere() {
+        return genere;
+    }
+
+    public void setGenere(Genere genere) {
+        this.genere = genere;
+    }
 
     public Long getId() {
         return id;
@@ -29,12 +53,12 @@ public class Contenuto {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitolo() {
+        return titolo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
 
     public String getDescrizione() {
@@ -43,14 +67,6 @@ public class Contenuto {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 
     public List<Recensione> getRecensioni() {

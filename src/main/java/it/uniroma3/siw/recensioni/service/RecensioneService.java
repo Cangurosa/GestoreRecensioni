@@ -33,8 +33,6 @@ public class RecensioneService {
         if(recensione.getStelle()==null || recensione.getStelle()<1 || recensione.getStelle()>5){
             throw new RuntimeException("Il voto deve essere compreso tra 1 e 5");
         }
-
-
         recensione.setUtente(utente);
         recensione.setContenuto(contenuto);
 
@@ -97,13 +95,13 @@ public class RecensioneService {
     }
 
     /**
-     *Metodo per cercare una recensione dal nome del contenuto
+     *Metodo per cercare una recensione dal titolo del contenuto
      */
-    public List<Recensione> getRecensioniByNomeContenuto(String nome){
-        if(nome==null || nome.isBlank()){
-            throw new RuntimeException("Il nome del contenuto è obbligatorio");
+    public List<Recensione> getRecensioniByTitoloContenuto(String titolo){
+        if(titolo==null || titolo.isBlank()){
+            throw new RuntimeException("Il titolo del contenuto è obbligatorio");
         }
-        return recensioneRepository.findByContenutoNomeContainingIgnoreCase(nome);
+        return recensioneRepository.findByContenutoTitoloContainingIgnoreCase(titolo);
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface RecensioneRepository extends CrudRepository<Recensione, Long> {
 
-    List<Recensione> findByContenutoNomeContainingIgnoreCase(String nome);
+    List<Recensione> findByContenutoTitoloContainingIgnoreCase(String titolo);
 
     List<Recensione> findByStelle(Integer stelle);
 

@@ -3,11 +3,8 @@ package it.uniroma3.siw.recensioni.model;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import it.uniroma3.siw.recensioni.classiAusiliarie.RuoloUtente;
+import jakarta.persistence.*;
 
 @Entity
 public class Utente {
@@ -17,6 +14,8 @@ public class Utente {
     private String username;
     private String password;
     private String email;
+    @Enumerated(EnumType.STRING)
+    private RuoloUtente ruoloUtente;
 
     @OneToMany(mappedBy = "utente")
     private List<ListaPreferiti> listaPreferiti;
@@ -70,6 +69,14 @@ public class Utente {
 
     public void setRecensioni(List<Recensione> recensioni) {
         this.recensioni = recensioni;
+    }
+
+    public RuoloUtente getRuoloUtente() {
+        return ruoloUtente;
+    }
+
+    public void setRuoloUtente(RuoloUtente ruoloUtente) {
+        this.ruoloUtente = ruoloUtente;
     }
 
     @Override

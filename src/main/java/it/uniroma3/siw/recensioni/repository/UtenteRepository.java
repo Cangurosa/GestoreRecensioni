@@ -8,4 +8,5 @@ import it.uniroma3.siw.recensioni.model.Utente;
 @Repository
 public interface UtenteRepository extends CrudRepository<Utente, Long>{
 
+    Utente findByUsername(String username);
 }

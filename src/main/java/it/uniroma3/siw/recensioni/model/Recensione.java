@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -15,12 +16,11 @@ public class Recensione {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer stelle;
-    private String descrizione;
-
+    private String testo;
+    private LocalDateTime dataEOra;
     @ManyToOne
     @JoinColumn(name = "utente_id")
     private Utente utente;
-
     @ManyToOne
     private Contenuto contenuto;
 
@@ -32,6 +32,14 @@ public class Recensione {
         this.id = id;
     }
 
+    public LocalDateTime getDataEOra() {
+        return dataEOra;
+    }
+
+    public void setDataEOra(LocalDateTime dataEOra) {
+        this.dataEOra = dataEOra;
+    }
+
     public Integer getStelle() {
         return stelle;
     }
@@ -40,12 +48,12 @@ public class Recensione {
         this.stelle = stelle;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public String getTesto() {
+        return testo;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setTesto(String testo) {
+        this.testo = testo;
     }
 
     public Utente getUtente() {
@@ -68,11 +76,11 @@ public class Recensione {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Recensione that = (Recensione) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getStelle(), that.getStelle()) && Objects.equals(getDescrizione(), that.getDescrizione()) && Objects.equals(getUtente(), that.getUtente()) && Objects.equals(getContenuto(), that.getContenuto());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getStelle(), that.getStelle()) && Objects.equals(getTesto(), that.getTesto()) && Objects.equals(getUtente(), that.getUtente()) && Objects.equals(getContenuto(), that.getContenuto());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getStelle(), getDescrizione(), getUtente(), getContenuto());
+        return Objects.hash(getId(), getStelle(), getTesto(), getUtente(), getContenuto());
     }
 }

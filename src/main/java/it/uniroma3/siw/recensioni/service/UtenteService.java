@@ -26,6 +26,11 @@ public class UtenteService {
     }
 
     public void registraNuovoUtente(Utente utente) {
+
+        if (this.utenteRepository.findByUsername(utente.getUsername()) != null) {
+            return;
+        }
+
         Utente utenteCorrente = new Utente();
 
         utenteCorrente.setEmail(utente.getEmail());

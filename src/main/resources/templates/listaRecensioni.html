@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lista recensioni</title>
+</head>
+<body>
+<div th:each="r : ${modelRecensioni}">
+    <h3 th:text="${r.contenuto.titolo}"></h3>
+
+    <p>
+        Scritta da:
+        <span th:text="${r.utente.username}"></span>
+    </p>
+
+    <p th:text="${r.testo}"></p>
+
+    <p th:text="${#temporals.format(r.dataEOra, 'dd/MM/yyyy HH:mm')}"></p>
+
+    <form th:if="${#authentication.name == r.utente.username}"
+          th:action="@{/r/{id}/elimina(id=${r.id})}"
+          method="post">
+        <button type="submit">Elimina recensione</button>
+    </form>
+
+    <hr>
+</div>
+
+<a th:href="@{/home}">torna alla home</a>
+
+</body>
+</html>

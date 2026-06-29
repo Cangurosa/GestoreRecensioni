@@ -27,7 +27,8 @@ public class RecensioneService {
         Utente utenteCorrente=this.utenteRepository.findByUsername(username);
         if(utenteCorrente!=null)
             return utenteCorrente.getRecensioni();
-        else return null;
+        else
+            return null;
     }
 
     public List<Recensione> getAllRecensioniDatabase(){
@@ -60,7 +61,5 @@ public class RecensioneService {
         recensione.setContenuto(this.contenutoRepository.findById(idContenuto).orElse(null));
         this.recensioneRepository.save(recensione);
     }
-
-
 
 }

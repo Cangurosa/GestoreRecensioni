@@ -26,13 +26,11 @@ public class UtenteService {
     }
 
     public void registraNuovoUtente(Utente utente) {
-
         if (this.utenteRepository.findByUsername(utente.getUsername()) != null) {
-            return;
+            throw new RuntimeException("Username già esistente");
         }
 
         Utente utenteCorrente = new Utente();
-
         utenteCorrente.setEmail(utente.getEmail());
         utenteCorrente.setUsername(utente.getUsername());
         utenteCorrente.setPassword(passwordEncoder.encode(utente.getPassword()));
@@ -40,4 +38,5 @@ public class UtenteService {
 
         this.utenteRepository.save(utenteCorrente);
     }
+
 }

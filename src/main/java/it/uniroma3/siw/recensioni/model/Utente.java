@@ -11,10 +11,11 @@ public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String password;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     @Enumerated(EnumType.STRING)
     private RuoloUtente ruoloUtente;

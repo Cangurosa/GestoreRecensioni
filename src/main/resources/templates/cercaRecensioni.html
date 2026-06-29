@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cerca recensioni</title>
+</head>
+<body>
+
+<h1>Cerca recensioni</h1>
+
+<p th:if="${errore}" th:text="${errore}"></p>
+
+<form th:action="@{/recensioni/cerca}" method="post">
+
+    <p>
+        ID utente:
+        <input type="text" name="usernameUtente" placeholder="Inserisci username utente">
+    </p>
+
+    <p>
+        Contenuto:
+        <select name="idContenuto">
+            <option value="">Nessun contenuto selezionato</option>
+
+            <option th:each="c : ${modelContenuti}"
+                    th:value="${c.id}"
+                    th:text="${c.titolo}">
+            </option>
+        </select>
+    </p>
+
+    <button type="submit">Cerca</button>
+
+</form>
+
+<hr>
+
+<a th:href="@{/recensioni}">Vedi tutte le recensioni</a>
+<br>
+
+<a th:href="@{/home}">Torna alla home</a>
+
+
+</body>
+</html>

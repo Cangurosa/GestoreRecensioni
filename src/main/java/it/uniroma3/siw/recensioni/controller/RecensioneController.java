@@ -59,13 +59,13 @@ public class RecensioneController {
 
         this.recensioneService.salvaRecensione(recensione, username, contenutoId);
 
-        return "redirect:/recensioni/mie";
+        return "redirect:/listaContenuti/" + contenutoId;
     }
 
     @PostMapping("/r/{id}/elimina")
     public String eliminaRecensione(@PathVariable Long id) {
         this.recensioneService.eliminaRecensione(id);
-        return "redirect:/recensioni/mie";
+        return "redirect:/listaContenuti";
     }
 
     @GetMapping("/recensioni/cerca")

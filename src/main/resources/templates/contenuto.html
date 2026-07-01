@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettaglio contenuto</title>
+</head>
+<body>
+
+<h1>Dettaglio contenuto</h1>
+
+<p>
+    <strong>Titolo:</strong>
+    <span th:text="${modelContenuto.titolo}"></span>
+</p>
+
+<p>
+    <strong>Tipo:</strong>
+    <span th:text="${modelContenuto.tipo}"></span>
+</p>
+
+<p>
+    <strong>Anno:</strong>
+    <span th:text="${modelContenuto.anno}"></span>
+</p>
+
+<p>
+    <strong>Descrizione:</strong>
+    <span th:text="${modelContenuto.descrizione}"></span>
+</p>
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    <form th:action="@{/admin/dettaglioContenuto/{id}/elimina(id=${modelContenuto.id})}"
+          method="post">
+        <button type="submit">Elimina contenuto</button>
+    </form>
+</div>
+
+<br>
+
+<h2>Recensioni di questo contenuto</h2>
+
+<div th:if="${#lists.isEmpty(modelContenuto.recensioni)}">
+    <p>Nessuna recensione presente.</p>
+</div>
+
+<div th:each="r : ${modelRecensioni}">
+    <p>
+        <strong>Autore:</strong>
+        <span th:text="${r.utente.username}"></span>
+    </p>
+
+    <p>
+        <strong>Voto:</strong>
+        <span th:text="${r.stelle}"></span>/5
+    </p>
+
+    <p>
+        <strong>Testo:</strong>
+        <span th:text="${r.testo}"></span>
+    </p>
+
+    <p>
+        <strong>Data:</strong>
+        <span th:text="${#temporals.format(r.dataEOra, 'dd/MM/yyyy HH:mm')}"></span>
+    </p>
+
+    <form th:if="${#authentication.name == r.utente.username}"
+          th:action="@{/r/{id}/elimina(id=${r.id})}"
+          method="post">
+        <button type="submit">Elimina recensione</button>
+    </form>
+
+    <hr>
+</div>
+
+<br>
+
+<div sec:authorize="isAuthenticated()">
+    <h2>Aggiungi una recensione</h2>
+
+    <form th:action="@{/recensioni/nuova}" method="post">
+        <input type="hidden" name="contenutoId" th:value="${modelContenuto.id}">
+
+        <p>
+            Testo recensione:
+            <textarea name="testo" required></textarea>
+        </p>
+
+        <p>
+            Voto:
+            <input type="number" name="stelle" min="1" max="5" required>
+        </p>
+
+        <button type="submit">Pubblica recensione</button>
+    </form>
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <p>Devi effettuare il login per scrivere una recensione.</p>
+    <a th:href="@{/login}">Fai il login</a>
+</div>
+
+<br>
+
+<a th:href="@{/listaContenuti}">Torna alla lista contenuti</a>
+<br><br>
+<a th:href="@{/home}">Torna alla home</a>
+
+</body>
+</html>

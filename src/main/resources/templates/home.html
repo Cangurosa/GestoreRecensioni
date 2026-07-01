@@ -28,6 +28,14 @@
 
 <br><br>
 
+<a th:href="@{/listaContenuti}">Lista contenuti</a>
+
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/admin/nuovoContenuto}">Inserisci nuovo contenuto</a>
+    <br><br>
+</div>
+
 <div sec:authorize="isAuthenticated()">
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>

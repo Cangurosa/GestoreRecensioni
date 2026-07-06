@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+
+<p>Scegli cosa vuoi fare:</p>
+
+<a th:href="@{/recensioni}">Vedi tutte le recensioni</a>
+
+<br><br>
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/recensioni/mie}">Le mie recensioni</a>
+
+    <br><br>
+
+    <a th:href="@{/recensioni/nuova}">Inserisci nuova recensione</a>
+
+    <br><br>
+</div>
+
+<a th:href="@{/recensioni/cerca}">Cerca recensioni</a>
+
+<br><br>
+
+<a th:href="@{/listaContenuti}">Lista contenuti</a>
+
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/admin/nuovoContenuto}">Inserisci nuovo contenuto</a>
+    <br><br>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+
+<div sec:authorize="!isAuthenticated()">
+    <a th:href="@{/login}">Login</a>
+
+    <br><br>
+
+    <a th:href="@{/registrazione}">Registrati</a>
+</div>
+
+</body>
+</html>

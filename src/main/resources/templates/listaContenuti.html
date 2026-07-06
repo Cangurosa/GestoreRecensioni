@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista contenuti</title>
+</head>
+<body>
+
+<h1>Lista contenuti</h1>
+
+<div th:if="${#lists.isEmpty(modelContenuti)}">
+    <p>Nessun contenuto presente.</p>
+</div>
+
+<div th:each="c : ${modelContenuti}">
+    <h2 th:text="${c.titolo}"></h2>
+
+    <p>
+        <strong>Categoria:</strong>
+        <span th:text="${c.categoria}"></span>
+    </p>
+
+    <p>
+        <strong>Anno:</strong>
+        <span th:text="${c.anno}"></span>
+    </p>
+
+    <p>
+        <strong>Descrizione:</strong>
+        <span th:text="${c.descrizione}"></span>
+    </p>
+
+    <a th:href="@{/listaContenuti/{id}(id=${c.id})}">Vedi dettaglio</a>
+
+    <hr>
+</div>
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/admin/nuovoContenuto}">Aggiungi nuovo contenuto</a>
+</div>
+
+<br><br>
+
+<a th:href="@{/home}">Torna alla home</a>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuovo contenuto</title>
+</head>
+<body>
+
+<h1>Registrazione nuovo contenuto</h1>
+
+<form th:action="@{/admin/nuovoContenuto}"
+      th:object="${modelContenuto}"
+      method="post">
+
+    <div>
+        <label>Titolo:</label>
+        <input type="text" th:field="*{titolo}">
+    </div>
+
+    <br>
+
+
+    <div>
+        <label>Anno:</label>
+        <input type="number" th:field="*{anno}">
+    </div>
+
+    <br>
+
+    <div>
+        <label for="descrizione">Descrizione:</label>
+        <textarea id="descrizione" th:field="*{descrizione}"></textarea>
+    </div>
+
+    <br>
+    
+    <div>
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" th:field="*{categoria}" required>
+            <option value="">-- Seleziona Una Categoria --</option>
+            <option th:each="categoria: ${categorie}" th:value="${categoria}" th:text="${categoria}"></option>
+        </select>
+    </div>
+
+    <button type="submit">Aggiungi contenuto</button>
+
+</form>
+
+<br>
+
+<a th:href="@{/listaContenuti}">Torna alla lista contenuti</a>
+
+<br><br>
+
+<a th:href="@{/home}">Torna alla home</a>
+
+</body>
+</html>

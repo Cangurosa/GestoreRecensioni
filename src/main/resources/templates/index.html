@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pagina iniziale</title>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+    </head>
+
+    <body>
+
+        <div class="welcome-container">
+            <div class="scritte">
+                <h1>Benvenuto</h1>
+                
+                <h2>Come vuoi accedere?</h2>
+            </div>
+            
+            <div class="pulsanti">
+                <a th:href="@{/home}" class="btn-primario">
+                    <i class="fa-solid fa-question guest-icon"></i>
+                    <span>Accedi Come<br>Ospite</span>
+                </a>
+                
+                <a th:href="@{/login}" class="btn-primario">
+                    <i class="fa-solid fa-user user-icon"></i>
+                    <span>Accedi Con Le Credenziali</span>
+                </a>
+                
+                <a th:href="@{/registrazione}" class="btn-secondario">
+                    <i class="fa-solid fa-pen sign-in-icon"></i>
+                    <span>Registrati</span>
+                </a>
+            </div>
+        </div>
+
+    </body>
+</html>

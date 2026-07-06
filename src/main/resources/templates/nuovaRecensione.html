@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuova recensione</title>
+</head>
+<body>
+
+<h1>Inserisci una nuova recensione</h1>
+
+<form th:action="@{/recensioni/nuova}" th:object="${recensione}" method="post">
+
+    <div>
+        <label>Seleziona contenuto per la recensione:</label>
+
+        <select name="contenutoId" required>
+
+            <option value="" selected>
+                nessun contenuto selezionato
+            </option>
+
+            <option th:each="c : ${modelContenuti}"
+                    th:value="${c.id}"
+                    th:text="${c.titolo}">
+            </option>
+        </select>
+    </div>
+
+    <p>
+        Testo recensione:
+        <textarea th:field="*{testo}"></textarea>
+    </p>
+
+    <p>
+        Voto:
+        <input type="number" th:field="*{stelle}" min="1" max="5">
+    </p>
+
+
+
+    <button type="submit">Salva recensione</button>
+
+</form>
+
+<a th:href="@{/home}">Torna alla home</a>
+
+</body>
+</html>

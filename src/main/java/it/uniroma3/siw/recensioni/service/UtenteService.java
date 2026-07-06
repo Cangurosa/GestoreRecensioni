@@ -34,7 +34,7 @@ public class UtenteService {
         utenteCorrente.setEmail(utente.getEmail());
         utenteCorrente.setUsername(utente.getUsername());
         utenteCorrente.setPassword(passwordEncoder.encode(utente.getPassword()));
-        utenteCorrente.setRuoloUtente(RuoloUtente.ADMIN);
+        utenteCorrente.setRuoloUtente(RuoloUtente.USER);
 
         this.utenteRepository.save(utenteCorrente);
     }

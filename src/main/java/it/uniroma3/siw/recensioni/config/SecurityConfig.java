@@ -50,7 +50,7 @@ public class SecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index", "/login", "/registrazione", "/css/**", "/home","/cercaRecensioni", "/listaRecensioni", "/images/**","/recensioni", "/recensioni/cerca", "/listaContenuti/**").permitAll()
+                        .requestMatchers("/", "/index", "/login", "/registrazione", "/css/**", "/home","/cercaRecensioni", "/listaRecensioni", "/images/**","/recensioni", "/recensioni/cerca", "/listaContenuti/**", "/uploads/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated()

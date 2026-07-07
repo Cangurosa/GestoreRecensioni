@@ -22,6 +22,7 @@ public class Contenuto {
     private Integer anno;
     private String descrizione;
     private Categoria categoria;
+    public String immagineCopertina;
 
 
     @OneToMany(mappedBy = "contenuto")
@@ -77,15 +78,23 @@ public class Contenuto {
         this.categoria = categoria;
     }
 
+    public String getImmagineCopertina() {
+        return immagineCopertina;
+    }
+
+    public void setImmagineCopertina(String immagineCopertina) {
+        this.immagineCopertina = immagineCopertina;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Contenuto contenuto = (Contenuto) o;
-        return Objects.equals(getId(), contenuto.getId()) && Objects.equals(getTitolo(), contenuto.getTitolo()) && Objects.equals(getCategoria(), contenuto.getCategoria()) && Objects.equals(getAnno(), contenuto.getAnno()) && Objects.equals(getDescrizione(), contenuto.getDescrizione()) && Objects.equals(getRecensioni(), contenuto.getRecensioni());
+        return Objects.equals(getId(), contenuto.getId()) && Objects.equals(getTitolo(), contenuto.getTitolo()) && Objects.equals(getCategoria(), contenuto.getCategoria()) && Objects.equals(getAnno(), contenuto.getAnno()) && Objects.equals(getDescrizione(), contenuto.getDescrizione()) && Objects.equals(getRecensioni(), contenuto.getRecensioni()) && Objects.equals(getImmagineCopertina(), contenuto.getImmagineCopertina());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitolo(), getCategoria(), getAnno(), getDescrizione(), getRecensioni());
+        return Objects.hash(getId(), getTitolo(), getCategoria(), getAnno(), getDescrizione(), getRecensioni(), getImmagineCopertina());
     }
 }

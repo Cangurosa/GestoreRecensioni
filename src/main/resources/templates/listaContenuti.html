@@ -31,6 +31,12 @@
         <strong>Descrizione:</strong>
         <span th:text="${c.descrizione}"></span>
     </p>
+    
+    <div>
+        <img th:if="${c.immagineCopertina != null}"
+             th:src="${c.immagineCopertina}"
+             alt="Copertina contenuto"/>
+    </div>
 
     <a th:href="@{/listaContenuti/{id}(id=${c.id})}">Vedi dettaglio</a>
 

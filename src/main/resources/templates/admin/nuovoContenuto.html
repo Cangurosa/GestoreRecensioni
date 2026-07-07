@@ -10,7 +10,8 @@
 
 <form th:action="@{/admin/nuovoContenuto}"
       th:object="${modelContenuto}"
-      method="post">
+      method="post"
+      enctype="multipart/form-data">
 
     <div>
         <label>Titolo:</label>
@@ -41,7 +42,21 @@
             <option th:each="categoria: ${categorie}" th:value="${categoria}" th:text="${categoria}"></option>
         </select>
     </div>
+    
+    <h3>Aggiungi un'immagine di copertina</h3>
+    
+    <div>
+        <label for="imageFile">Carica l'immagine dal tuo PC:</label>
+        <input type="file" id="imageFile" name="imageFile" accept="image/png, image/jpeg">
+    </div>
 
+    <div><p>Oppure</p></div>
+    
+    <div>
+        <label for="imageUrl">Inserisci l'URL dell'immagine:</label>
+        <input type="url" id="imageUrl" name="imageUrl" placeholder="https://esempio.com/immagine.jpg">
+    </div>
+    
     <button type="submit">Aggiungi contenuto</button>
 
 </form>

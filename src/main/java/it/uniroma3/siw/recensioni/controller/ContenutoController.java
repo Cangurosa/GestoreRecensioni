@@ -7,9 +7,8 @@ import it.uniroma3.siw.recensioni.service.RecensioneService;
 import it.uniroma3.siw.recensioni.service.UtenteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ContenutoController {
@@ -43,8 +42,10 @@ public class ContenutoController {
     }
 
     @PostMapping("/admin/nuovoContenuto")
-    public String registraNuovoContenuto(Contenuto contenuto){
-        this.contenutoService.aggiungiNuovoContenuto(contenuto);
+    public String registraNuovoContenuto(@ModelAttribute Contenuto contenuto,
+                                         @RequestParam(value="imageFile", required = false) MultipartFile file,
+                                         @RequestParam(value = "imageUrl", required = false) String imageUrl){
+        this.contenutoService.aggiungiNuovoContenuto(contenuto, file, imageUrl);
         return "redirect:/listaContenuti";
     }
 

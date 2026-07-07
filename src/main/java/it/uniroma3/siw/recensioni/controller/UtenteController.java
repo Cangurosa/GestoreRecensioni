@@ -40,13 +40,8 @@ public class UtenteController {
     }
 
     @GetMapping("/home/cambiaRuolo")
-    public String apriFormCambiaRuolo(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
-        List<Utente> utenti=utenteService.getUtentiFiltrati(keyword);
-
-        model.addAttribute("utenti", utenti);
-        model.addAttribute("keyword", keyword);
-
-        return "/admin/form-cambia-ruolo";
+    public String apriFormCambiaRuolo(Model model) {
+        return "redirect:http://localhost:5173/";
     }
 
     @PreAuthorize("hasRole('ADMIN')")

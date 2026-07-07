@@ -8,47 +8,48 @@
 </head>
 <body>
 
-<p>Scegli cosa vuoi fare:</p>
+    <p>Scegli cosa vuoi fare:</p>
 
-<a th:href="@{/recensioni}">Vedi tutte le recensioni</a>
+    <a th:href="@{/recensioni}">Vedi tutte le recensioni</a>
 
-<br><br>
+    <div sec:authorize="isAuthenticated()">
+        <div>
+            <a th:href="@{/recensioni/mie}">Le mie recensioni</a>
+        </div>
 
-<div sec:authorize="isAuthenticated()">
-    <a th:href="@{/recensioni/mie}">Le mie recensioni</a>
+        <div>
+            <a th:href="@{/recensioni/nuova}">Inserisci nuova recensione</a>
+        </div>
+    </div>
 
-    <br><br>
+    <div>
+        <a th:href="@{/recensioni/cerca}">Cerca recensioni</a>
+    </div>
 
-    <a th:href="@{/recensioni/nuova}">Inserisci nuova recensione</a>
+    <div>
+        <a th:href="@{/listaContenuti}">Lista contenuti</a>
+    </div>
 
-    <br><br>
-</div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a th:href="@{/admin/nuovoContenuto}">Inserisci nuovo contenuto</a>
+    
+    </div>
+    
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a th:href="@{home/cambiaRuolo}">Cambia Ruolo Degli Utenti</a>
+    </div>
 
-<a th:href="@{/recensioni/cerca}">Cerca recensioni</a>
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 
-<br><br>
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}">Login</a>
 
-<a th:href="@{/listaContenuti}">Lista contenuti</a>
-
-
-<div sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/admin/nuovoContenuto}">Inserisci nuovo contenuto</a>
-    <br><br>
-</div>
-
-<div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
-</div>
-
-<div sec:authorize="!isAuthenticated()">
-    <a th:href="@{/login}">Login</a>
-
-    <br><br>
-
-    <a th:href="@{/registrazione}">Registrati</a>
-</div>
+        <a th:href="@{/registrazione}">Registrati</a>
+    </div>
 
 </body>
 </html>

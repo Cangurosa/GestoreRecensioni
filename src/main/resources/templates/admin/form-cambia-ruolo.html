@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cambia Ruolo</title>
+    </head>
+
+    <body>
+        
+        <form th:action="@{/home/cambiaRuolo}" method="GET">
+            <input type="text"
+                   name="keyword"
+                   th:value="${keyword}"
+                   placeholder="Cerca per username o email..."
+                   autocomplete="one-time-code"/>
+            
+            <button type="submit">Cerca</button>
+            
+            <a th:if="${keyword!=null && !keyword.isEmpty()}"
+               th:href="@{/home/cambiaRuolo}">
+                Annulla Filtro
+            </a>
+        </form>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome Utente</th>
+                    <th>Email</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr th:each="utente: ${utenti}">
+                    <td th:text="${utente.username}"></td>
+                    <td th:text="${utente.email}"></td>
+                    <td th:if="${utente.username != #authentication.name}">
+                        <form th:action="@{/home/cambiaRuolo/{usernameUtenteDaModificare}(usernameUtenteDaModificare=${utente.username})}" method="POST">
+                            <button type="submit">Modifica Ruolo</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a th:href="@{/home}">Home</a>
+    </body>
+</html>

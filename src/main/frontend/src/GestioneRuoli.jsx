@@ -30,8 +30,8 @@ function GestioneRuoli() {
 
     const caricaUtenti = (searchKw) => {
         setLoading(true);
-        const url = searchKw 
-            ? `http://localhost:8080/admin/api/utenti?keyword=${encodeURIComponent(searchKw)}` 
+        const url = searchKw
+            ? `http://localhost:8080/admin/api/utenti?keyword=${encodeURIComponent(searchKw)}`
             : 'http://localhost:8080/admin/api/utenti';
 
         fetch(url, { credentials: 'include' })
@@ -80,83 +80,91 @@ function GestioneRuoli() {
     if (utenteAttivo && (!utenteAttivo.ruoli || !utenteAttivo.ruoli.includes('ADMIN'))) {
         return (
             <div className="react-page">
-                <h2>Accesso Negato</h2>
-                <p>Devi essere un amministratore per visualizzare questa pagina.</p>
+                <div className="all-container" style={{ textAlign: 'center' }}>
+                    <h2>Accesso Negato</h2>
+                    <p>Devi essere un amministratore per visualizzare questa pagina.</p>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="react-page">
-            <div className="topbar">
-                <h2>Gestione Ruoli Utenti</h2>
-                <button className="btn-secondario" onClick={() => window.location.href='http://localhost:8080/home'}>
-                    <i className="fa-solid fa-house" style={{marginRight: '10px'}}></i>
-                    Torna Alla Home
-                </button>
-            </div>
+            <div className="all-container">
 
-            <div className="contenuto-principale">
+                <div className="topbar">
+                    <h2>Gestione Ruoli Utenti</h2>
+                    <button className="btn-secondario" onClick={() => window.location.href='http://localhost:8080/home'}>
+                        <i className="fa-solid fa-house"></i>
+                        Torna Alla Home
+                    </button>
+                </div>
+
                 <div className="search-card">
                     <form onSubmit={gestisciRicerca} className="form-inline">
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={searchInput}
                             onChange={(e) => setSearchInput(e.target.value)}
                             placeholder="Cerca per username o email..."
                             className="input-moderno"
                         />
-                        <button type="submit" className="btn-primario">Cerca</button>
+                        <button type="submit" className="btn-primario">
+                            <i className="fa-solid fa-magnifying-glass"></i> Cerca
+                        </button>
                         {keyword && (
-                            <button type="button" className="btn-secondario" onClick={annullaFiltro} style={{marginLeft: '10px'}}>
-                                Annulla
+                            <button type="button" className="btn-secondario" onClick={annullaFiltro}>
+                                <i className="fa-solid fa-xmark"></i> Annulla
                             </button>
                         )}
                     </form>
                 </div>
 
                 {loading ? (
-                    <p>Caricamento in corso...</p>
+                    <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Caricamento in corso...</p>
                 ) : (
-                    <table className="tabella-moderna">
-                        <thead>
-                            <tr>
-                                <th>Nome Utente</th>
-                                <th>Email</th>
-                                <th>Ruolo Attuale</th>
-                                <th style={{width: '180px'}}>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {utenti.map(utente => (
-                                <tr key={utente.username}>
-                                    <td>{utente.username}</td>
-                                    <td>{utente.email}</td>
-                                    <td>{utente.ruoloUtente}</td>
-                                    <td>
-                                        {utenteAttivo && utente.username !== utenteAttivo.username && (
-                                            <button 
-                                                className={`bottone-tabella ${utente.ruoloUtente === 'ADMIN' ? 'btn-danger' : ''}`}
-                                                onClick={() => cambiaRuolo(utente.username)}
-                                            >
-                                                {utente.ruoloUtente === 'ADMIN' ? (
-                                                    <><i className="fa-solid fa-user-minus" style={{marginRight: '5px'}}></i> Rimuovi Admin</>
-                                                ) : (
-                                                    <><i className="fa-solid fa-user-shield" style={{marginRight: '5px'}}></i> Rendi Admin</>
-                                                )}
-                                            </button>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                            {utenti.length === 0 && (
+                    <div className="table-container">
+                        <table className="tabella-moderna">
+                            <thead>
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>Nessun utente trovato</td>
+                                    <th>Nome Utente</th>
+                                    <th>Email</th>
+                                    <th>Ruolo Attuale</th>
+                                    <th style={{width: '200px'}}>Azioni</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {utenti.map(utente => (
+                                    <tr key={utente.username}>
+                                        <td>{utente.username}</td>
+                                        <td>{utente.email}</td>
+                                        <td><strong>{utente.ruoloUtente}</strong></td>
+                                        <td>
+                                            {utenteAttivo && utente.username !== utenteAttivo.username && (
+                                                <button
+                                                    className={`bottone-tabella ${utente.ruoloUtente === 'ADMIN' ? 'btn-danger' : ''}`}
+                                                    onClick={() => cambiaRuolo(utente.username)}
+                                                >
+                                                    {utente.ruoloUtente === 'ADMIN' ? (
+                                                        <><i className="fa-solid fa-user-minus"></i> Rimuovi Admin</>
+                                                    ) : (
+                                                        <><i className="fa-solid fa-user-shield"></i> Rendi Admin</>
+                                                    )}
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                                {utenti.length === 0 && (
+                                    <tr>
+                                        <td colSpan="4" style={{ textAlign: 'center', padding: '30px' }}>Nessun utente trovato</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
+
             </div>
         </div>
     );

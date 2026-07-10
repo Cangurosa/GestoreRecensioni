@@ -1,11 +1,6 @@
 package it.uniroma3.siw.recensioni.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -16,6 +11,8 @@ public class Recensione {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer stelle;
+
+    @Column(columnDefinition = "TEXT")
     private String testo;
     private LocalDateTime dataEOra;
     @ManyToOne

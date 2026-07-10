@@ -2,72 +2,77 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+   
     <title>Nuovo contenuto</title>
+    <link rel="stylesheet" th:href="@{/css/nuovo-contenuto.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-<h1>Registrazione nuovo contenuto</h1>
-
-<form th:action="@{/admin/nuovoContenuto}"
-      th:object="${modelContenuto}"
-      method="post"
-      enctype="multipart/form-data">
-
-    <div>
-        <label>Titolo:</label>
-        <input type="text" th:field="*{titolo}">
-    </div>
-
-    <br>
-
-
-    <div>
-        <label>Anno:</label>
-        <input type="number" th:field="*{anno}">
-    </div>
-
-    <br>
-
-    <div>
-        <label for="descrizione">Descrizione:</label>
-        <textarea id="descrizione" th:field="*{descrizione}"></textarea>
-    </div>
-
-    <br>
     
-    <div>
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" th:field="*{categoria}" required>
-            <option value="">-- Seleziona Una Categoria --</option>
-            <option th:each="categoria: ${categorie}" th:value="${categoria}" th:text="${categoria}"></option>
-        </select>
+    <div class="all-container">
+        
+        <h1 class="scritta">Registrazione nuovo contenuto</h1>
+        
+        <div class="card-container">
+            <form th:action="@{/admin/nuovoContenuto}"
+                  th:object="${modelContenuto}"
+                  method="post"
+                  enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <label>Titolo:</label>
+                    <input type="text" class="form-field" th:field="*{titolo}" placeholder="Es: Inception" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Anno:</label>
+                    <input type="number" class="form-field" th:field="*{anno}" placeholder="Es: 2010" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descrizione">Descrizione:</label>
+                    <textarea id="descrizione" class="form-field textarea-field" th:field="*{descrizione}" placeholder="Inserisci una trama o descrizione..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria" class="form-field" th:field="*{categoria}" required>
+                        <option value="">-- Seleziona Una Categoria --</option>
+                        <option th:each="categoria: ${categorie}" th:value="${categoria}" th:text="${categoria}"></option>
+                    </select>
+                </div>
+                
+                <h3 class="scritta" style="margin-top: 15px; font-size: 18px;">Immagine di copertina</h3>
+                
+                <div class="form-group">
+                    <label for="imageFile">Carica dal tuo PC:</label>
+                    <input type="file" id="imageFile" name="imageFile" accept="image/png, image/jpeg" class="form-field file-field">
+                </div>
+                
+                <div class="oppure-divider">Oppure</div>
+                
+                <div class="form-group">
+                    <label for="imageUrl">Inserisci URL dell'immagine:</label>
+                    <input type="url" id="imageUrl" name="imageUrl" class="form-field" placeholder="https://esempio.com/immagine.jpg">
+                </div>
+                
+                <button type="submit" class="btn-principale">
+                    <i class="fa-solid fa-plus"></i> Aggiungi contenuto
+                </button>
+            
+            </form>
+        </div>
+        
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+            <a th:href="@{/listaContenuti}" class="link">
+                <i class="fa-solid fa-list"></i> Lista contenuti
+            </a>
+            <a th:href="@{/home}" class="link">
+                <i class="fa-solid fa-house"></i> Torna alla home
+            </a>
+        </div>
+    
     </div>
-    
-    <h3>Aggiungi un'immagine di copertina</h3>
-    
-    <div>
-        <label for="imageFile">Carica l'immagine dal tuo PC:</label>
-        <input type="file" id="imageFile" name="imageFile" accept="image/png, image/jpeg">
-    </div>
-
-    <div><p>Oppure</p></div>
-    
-    <div>
-        <label for="imageUrl">Inserisci l'URL dell'immagine:</label>
-        <input type="url" id="imageUrl" name="imageUrl" placeholder="https://esempio.com/immagine.jpg">
-    </div>
-    
-    <button type="submit">Aggiungi contenuto</button>
-
-</form>
-
-<br>
-
-<a th:href="@{/listaContenuti}">Torna alla lista contenuti</a>
-
-<br><br>
-
-<a th:href="@{/home}">Torna alla home</a>
 
 </body>
 </html>

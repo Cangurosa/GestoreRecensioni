@@ -1,32 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>lista recensioni</title>
-</head>
-<body>
-<div th:each="r : ${modelRecensioni}">
-    <h3 th:text="${r.contenuto.titolo}"></h3>
+    <head>
+        <meta charset="UTF-8">
+        <title>lista recensioni</title>
+        
+        <link rel="stylesheet" th:href="@{/css/listaRecensioni.css}">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    
+    <body>
+        
+        <div class="titolo-link">
+            <h1 class="scritta">Tutte Le Recensioni</h1>
+            
+            <a th:href="@{/home}" class="link-home">
+                <i class="fa-solid fa-house"></i>
+                Torna alla home
+            </a>
+        </div>
+        
+        <div th:if="${not #lists.isEmpty(modelRecensioni)}" class="recensioni-container">
 
-    <p>
-        Scritta da:
-        <span th:text="${r.utente.username}"></span>
-    </p>
+            <div th:each="r : ${modelRecensioni}" class="recensione">
+                <h3 th:text="${r.contenuto.titolo}"></h3>
+                
+                <div>
+                    Scritta da:
+                    <span th:text="${r.utente.username}"></span>
+                </div>
+                
+                <div>
+                    <th:block th:each="i:${#numbers.sequence(1,5)}">
+                        
+                        <span th:if="${i<=r.stelle}">
+                           <i class="fa-solid fa-star stella-piena"></i>
+                        </span>
+                        
+                        <span th:unless="${i<=r.stelle}">
+                            <i class="fa-regular fa-star stella-vuota"></i>
+                        </span>
+                        
+                    </th:block>
+                </div>
+                
+                <div th:text="${r.testo}" class="box-testo"></div>
+                
+                <div th:text="${#temporals.format(r.dataEOra, 'dd/MM/yyyy HH:mm')}"></div>
+                
+                <div>
+                    <form th:if="${#authentication.name == r.utente.username}"
+                          th:action="@{/r/{id}/elimina(id=${r.id})}"
+                          method="post">
+                        <button type="submit" class="btn-elimina">
+                            <i class="fa-solid fa-trash-can"></i>
+                            Elimina recensione
+                        </button>
+                    </form>
+                </div>
+            </div>
+        
+        </div>
+    
+        <div th:if="${#lists.isEmpty(modelRecensioni)}">
+            Ancora nessuna recensione disponibile
+        </div>
 
-    <p th:text="${r.testo}"></p>
-
-    <p th:text="${#temporals.format(r.dataEOra, 'dd/MM/yyyy HH:mm')}"></p>
-
-    <form th:if="${#authentication.name == r.utente.username}"
-          th:action="@{/r/{id}/elimina(id=${r.id})}"
-          method="post">
-        <button type="submit">Elimina recensione</button>
-    </form>
-
-    <hr>
-</div>
-
-<a th:href="@{/home}">torna alla home</a>
-
-</body>
+    </body>
 </html>

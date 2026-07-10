@@ -32,6 +32,8 @@ public class ContenutoController {
     @GetMapping ("/listaContenuti")
     public String mostraListaContenuti(Model model){
         model.addAttribute("modelContenuti", this.contenutoService.getAllContenuti());
+        model.addAttribute("categorie", Categoria.values());
+
         return "listaContenuti";
     }
 

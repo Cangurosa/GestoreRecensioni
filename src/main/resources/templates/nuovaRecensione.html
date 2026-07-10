@@ -3,46 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuova recensione</title>
+    <link rel="stylesheet" th:href="@{/css/nuova-recensione.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-<h1>Inserisci una nuova recensione</h1>
-
-<form th:action="@{/recensioni/nuova}" th:object="${recensione}" method="post">
-
-    <div>
-        <label>Seleziona contenuto per la recensione:</label>
-
-        <select name="contenutoId" required>
-
-            <option value="" selected>
-                nessun contenuto selezionato
-            </option>
-
-            <option th:each="c : ${modelContenuti}"
-                    th:value="${c.id}"
-                    th:text="${c.titolo}">
-            </option>
-        </select>
+    
+    <div class="all-container">
+        
+        <h1 class="scritta">Inserisci una nuova recensione</h1>
+        
+        <div class="card-container">
+            <form th:action="@{/recensioni/nuova}" th:object="${recensione}" method="post">
+                
+                <div class="form-group">
+                    <label>Seleziona contenuto da recensire:</label>
+                    <select name="contenutoId" class="form-field" required>
+                        <option value="" selected>-- Nessun contenuto --</option>
+                        <option th:each="c : ${modelContenuti}"
+                                th:value="${c.id}"
+                                th:text="${c.titolo}">
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Testo recensione:</label>
+                    <textarea class="form-field textarea-field" th:field="*{testo}" placeholder="Scrivi qui cosa ne pensi..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Voto (da 1 a 5):</label>
+                    <input type="number" class="form-field" th:field="*{stelle}" min="1" max="5" placeholder="Es: 4" required>
+                </div>
+                
+                <button type="submit" class="btn-principale">
+                    <i class="fa-solid fa-paper-plane"></i> Salva recensione
+                </button>
+            
+            </form>
+        </div>
+        
+        <a th:href="@{/home}" class="link">
+            <i class="fa-solid fa-house"></i> Torna alla home
+        </a>
+    
     </div>
-
-    <p>
-        Testo recensione:
-        <textarea th:field="*{testo}"></textarea>
-    </p>
-
-    <p>
-        Voto:
-        <input type="number" th:field="*{stelle}" min="1" max="5">
-    </p>
-
-
-
-    <button type="submit">Salva recensione</button>
-
-</form>
-
-<a th:href="@{/home}">Torna alla home</a>
 
 </body>
 </html>

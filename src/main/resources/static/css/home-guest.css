@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fdfbf7 0%, #e3ebd3 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.all-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.scritta {
+    color: #2d3748;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 20px;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 150px;
+    height: 20px;
+    background-color: #fdfbf7;
+    color: #4a5568;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: 2px solid #4a5568;
+    border-radius: 25px;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.link:hover {
+    background-color: #dadad9;
+    color: #3a4251;
+    transform: scale(1.2);
+}
+
+.guest-login {
+    display: flex;
+    gap: 20px;
+}
+
+.link-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100px;
+    height: 10px;
+    background-color: #fdfbf7;
+    color: #4a5568;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: 2px solid #4a5568;
+    border-radius: 25px;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.link-login:hover {
+    background-color: #dadad9;
+    color: #3a4251;
+    transform: scale(1.2);
+}
+
+.link-signin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100px;
+    height: 10px;
+    background-color: #2f855a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.link-signin:hover {
+    background-color: #286c4b;
+    transform: scale(1.2);
+}

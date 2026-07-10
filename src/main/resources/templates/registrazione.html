@@ -1,44 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Registrazione</title>
-</head>
-<body>
+    <head>
+        <title>Registrazione</title>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <link th:href="@{/css/registrazione.css}" rel="stylesheet">
+    </head>
+    
+    <body>
+        
+        <div class="registration-container">
+            <h1 class="scritta">Registrazione</h1>
+            
+            <form th:action="@{/registrazione}" th:object="${utente}" method="post">
+                
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope icon"></i>
+                        <input type="email" id="email" th:field="*{email}">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user icon"></i>
+                        <input type="text" id="username" th:field="*{username}" autocomplete="one-time-code">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock icon"></i>
+                        <input type="password" id="password" th:field="*{password}" autocomplete="one-time-code">
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <button type="submit" class="btn-primario">
+                        <i class="fa-solid fa-pen sign-in-icon"></i>
+                        Registrati
+                    </button>
+                </div>
+            
+            </form>
+            
+            <div>
+                <span class="scritta">Hai già un account?</span>
+                <a th:href="@{/login}">Accedi</a>
+            </div>
+            
+            <div>
+                <a th:href="@{/}">Torna alla schermata principale</a>
+            </div>
+        </div>
 
-<h1>Registrazione</h1>
-
-<form th:action="@{/registrazione}" th:object="${utente}" method="post">
-
-    <div>
-        <label>Email:</label>
-        <input type="email" th:field="*{email}">
-    </div>
-
-    <br>
-
-    <div>
-        <label>Username:</label>
-        <input type="text" th:field="*{username}">
-    </div>
-
-    <br>
-
-    <div>
-        <label>Password:</label>
-        <input type="password" th:field="*{password}">
-    </div>
-
-    <br>
-
-    <button type="submit">Registrati</button>
-
-</form>
-
-<br>
-
-<a th:href="@{/login}">Hai già un account? Accedi</a>
-<br><br>
-<a th:href="@{/}">Torna alla schermata principale</a>
-
-</body>
+    </body>
 </html>

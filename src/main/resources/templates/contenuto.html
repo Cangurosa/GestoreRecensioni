@@ -2,111 +2,105 @@
 <html lang="it"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Dettaglio contenuto</title>
-</head>
-<body>
 
-<h1>Dettaglio contenuto</h1>
+    <head>
+        <meta charset="UTF-8">
+        <title>Dettaglio contenuto</title>
+    
+        <link rel="stylesheet" th:href="@{/css/dettaglio-contenuto.css}">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+    
+        <div class="all-container">
+        
+            <div class="card-container">
+                <h1 class="card-title" th:text="${modelContenuto.titolo}">Titolo</h1>
+            
+                <div class="card-text">
+                    <strong>Categoria:</strong> <span th:text="${modelContenuto.categoria}"></span>
+                </div>
+                <div class="card-text">
+                    <strong>Anno:</strong> <span th:text="${modelContenuto.anno}"></span>
+                </div>
+                <div class="card-text">
+                    <strong>Descrizione:</strong> <span th:text="${modelContenuto.descrizione}"></span>
+                </div>
+            
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/admin/dettaglioContenuto/{id}/elimina(id=${modelContenuto.id})}" method="post">
+                        <button type="submit" class="btn-danger">
+                            <i class="fa-solid fa-trash"></i> Elimina contenuto
+                        </button>
+                    </form>
+                </div>
+            </div>
+        
+            <h2 class="scritta">Tutte Le Recensioni</h2>
+        
+            <div th:if="${#lists.isEmpty(modelContenuto.recensioni)}">
+                <p class="scritta">Nessuna recensione presente.</p>
+            </div>
+        
+            <div class="reviews-grid">
+                <div th:each="r : ${modelRecensioni}" class="review-card">
+                
+                    <strong th:text="${modelContenuto.titolo}">Titolo</strong>
+                
+                    <div style="font-size: 14px;">
+                        Scritta da: <span th:text="${r.utente.username}"></span>
+                    </div>
+                
+                    <div class="stelle">
+                        <span th:text="${r.stelle}"></span> <i class="fa-solid fa-star"></i>
+                    </div>
+                
+                    <div class="review-text-box">
+                        <span th:text="${r.testo}"></span>
+                    </div>
+                
+                    <div style="font-size: 12px; color: #4a5568;">
+                        <span th:text="${#temporals.format(r.dataEOra, 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                
+                    <form th:if="${#authentication.name == r.utente.username}"
+                        th:action="@{/r/{id}/elimina(id=${r.id})}"
+                        method="post">
+                        <button type="submit" class="btn-danger">
+                            <i class="fa-solid fa-trash"></i> Elimina recensione
+                        </button>
+                    </form>
+                </div>
+            </div>
+        
+            <div sec:authorize="isAuthenticated()" class="card-container" style="margin-top: 20px;">
+                <h2 class="card-title">Inserisci nuova recensione</h2>
+            
+                <form th:action="@{/recensioni/nuova}" method="post">
+                    <input type="hidden" name="contenutoId" th:value="${modelContenuto.id}">
+                
+                    <textarea name="testo" class="form-field" placeholder="Scrivi la tua opinione..." required></textarea>
+                
+                    <input type="number" name="stelle" class="form-field" placeholder="Voto (1-5)" min="1" max="5" required>
+                
+                    <button type="submit" class="btn-principale">Pubblica</button>
+                </form>
+            </div>
+        
+            <div sec:authorize="isAnonymous()" class="card-container">
+                <p>Devi effettuare il login per scrivere una recensione.</p>
+                <a th:href="@{/login}" class="link">Fai il login</a>
+            </div>
+        
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                <a th:href="@{/listaContenuti}" class="link">Torna alla lista</a>
+                <a th:href="@{/home}" class="link">
+                    <i class="fa-solid fa-house"></i> Torna alla home
+                </a>
+            </div>
+    
+        </div>
 
-<p>
-    <strong>Titolo:</strong>
-    <span th:text="${modelContenuto.titolo}"></span>
-</p>
-
-<p>
-    <strong>Categoria:</strong>
-    <span th:text="${modelContenuto.categoria}"></span>
-</p>
-
-<p>
-    <strong>Anno:</strong>
-    <span th:text="${modelContenuto.anno}"></span>
-</p>
-
-<p>
-    <strong>Descrizione:</strong>
-    <span th:text="${modelContenuto.descrizione}"></span>
-</p>
-
-<div sec:authorize="hasAuthority('ADMIN')">
-    <form th:action="@{/admin/dettaglioContenuto/{id}/elimina(id=${modelContenuto.id})}"
-          method="post">
-        <button type="submit">Elimina contenuto</button>
-    </form>
-</div>
-
-<br>
-
-<h2>Recensioni di questo contenuto</h2>
-
-<div th:if="${#lists.isEmpty(modelContenuto.recensioni)}">
-    <p>Nessuna recensione presente.</p>
-</div>
-
-<div th:each="r : ${modelRecensioni}">
-    <p>
-        <strong>Autore:</strong>
-        <span th:text="${r.utente.username}"></span>
-    </p>
-
-    <p>
-        <strong>Voto:</strong>
-        <span th:text="${r.stelle}"></span>/5
-    </p>
-
-    <p>
-        <strong>Testo:</strong>
-        <span th:text="${r.testo}"></span>
-    </p>
-
-    <p>
-        <strong>Data:</strong>
-        <span th:text="${#temporals.format(r.dataEOra, 'dd/MM/yyyy HH:mm')}"></span>
-    </p>
-
-    <form th:if="${#authentication.name == r.utente.username}"
-          th:action="@{/r/{id}/elimina(id=${r.id})}"
-          method="post">
-        <button type="submit">Elimina recensione</button>
-    </form>
-
-    <hr>
-</div>
-
-<br>
-
-<div sec:authorize="isAuthenticated()">
-    <h2>Aggiungi una recensione</h2>
-
-    <form th:action="@{/recensioni/nuova}" method="post">
-        <input type="hidden" name="contenutoId" th:value="${modelContenuto.id}">
-
-        <p>
-            Testo recensione:
-            <textarea name="testo" required></textarea>
-        </p>
-
-        <p>
-            Voto:
-            <input type="number" name="stelle" min="1" max="5" required>
-        </p>
-
-        <button type="submit">Pubblica recensione</button>
-    </form>
-</div>
-
-<div sec:authorize="isAnonymous()">
-    <p>Devi effettuare il login per scrivere una recensione.</p>
-    <a th:href="@{/login}">Fai il login</a>
-</div>
-
-<br>
-
-<a th:href="@{/listaContenuti}">Torna alla lista contenuti</a>
-<br><br>
-<a th:href="@{/home}">Torna alla home</a>
-
-</body>
+    </body>
 </html>

@@ -2,54 +2,93 @@
 <html lang="it"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista contenuti</title>
-</head>
-<body>
-
-<h1>Lista contenuti</h1>
-
-<div th:if="${#lists.isEmpty(modelContenuti)}">
-    <p>Nessun contenuto presente.</p>
-</div>
-
-<div th:each="c : ${modelContenuti}">
-    <h2 th:text="${c.titolo}"></h2>
-
-    <p>
-        <strong>Categoria:</strong>
-        <span th:text="${c.categoria}"></span>
-    </p>
-
-    <p>
-        <strong>Anno:</strong>
-        <span th:text="${c.anno}"></span>
-    </p>
-
-    <p>
-        <strong>Descrizione:</strong>
-        <span th:text="${c.descrizione}"></span>
-    </p>
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista contenuti</title>
+        
+        <link rel="stylesheet" th:href="@{/css/lista-contenuti.css}">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
     
-    <div>
-        <img th:if="${c.immagineCopertina != null}"
-             th:src="${c.immagineCopertina}"
-             alt="Copertina contenuto"/>
-    </div>
+    <body>
 
-    <a th:href="@{/listaContenuti/{id}(id=${c.id})}">Vedi dettaglio</a>
+        <div class="topbar">
+            <h1>Lista contenuti</h1>
+            
+            <div class="link-generali">
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/admin/nuovoContenuto}" class="link-admin">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        Aggiungi nuovo contenuto
+                    </a>
+                </div>
+                
+                <a th:href="@{/home}" class="link-home">
+                    <i class="fa-solid fa-house"></i>
+                    Torna alla home
+                </a>
+            </div>
+        </div>
+        
+        <div class="contenuti-container">
+            
+            <div th:if="${#lists.isEmpty(modelContenuti)}">
+                <p>Nessun contenuto presente.</p>
+            </div>
+            
+            <div th:each="c : ${modelContenuti}" class="contenuto">
+                
+                <div class="copertina">
+                    <img th:if="${c.immagineCopertina != null}"
+                         th:src="${c.immagineCopertina}"
+                         alt="Copertina contenuto"/>
+                </div>
+                
+                <div class="informazioni">
+                    <h2 th:text="${c.titolo}"></h2>
+                    
+                    <div class="categoria-anno">
+                        <div>
+                            
+                            <span th:if="${c.categoria.name()=='FILM'}">
+                                <i class="fa-solid fa-clapperboard"></i>
+                            </span>
+                            
+                            <span th:if="${c.categoria.name()=='GIOCO'}">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </span>
+                            
+                            <span th:if="${c.categoria.name()=='LIBRO'}">
+                                <i class="fa-solid fa-book"></i>
+                            </span>
+                            
+                            <strong>Categoria:</strong>
+                            <span th:text="${c.categoria}"></span>
+                        </div>
+                        
+                        <div>
+                            <span>
+                                <i class="fa-regular fa-calendar-days"></i>
+                            </span>
+                            <strong>Anno:</strong>
+                            <span th:text="${c.anno}"></span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <strong>Descrizione:</strong>
+                        <span th:text="${c.descrizione}"></span>
+                    </div>
+                    
+                </div>
+                
+                <a th:href="@{/listaContenuti/{id}(id=${c.id})}" class="link-dettaglio">
+                    <i class="fa-regular fa-eye"></i>
+                    Vedi dettaglio
+                </a>
+            </div>
+        </div>
 
-    <hr>
-</div>
-
-<div sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/admin/nuovoContenuto}">Aggiungi nuovo contenuto</a>
-</div>
-
-<br><br>
-
-<a th:href="@{/home}">Torna alla home</a>
-
-</body>
+    </body>
 </html>

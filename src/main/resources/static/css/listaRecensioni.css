@@ -38,21 +38,6 @@ body {
     transform: scale(1.05);
 }
 
-.btn-elimina {
-    background-color: #b8b8b8;
-    border: 2px solid red;
-    border-radius: 25px;
-    box-shadow: 0 0 5px 5px rgb(110 32 32 / 0.5);
-    cursor: pointer;
-    color: black;
-    transition: background-color ease 0.3s, color ease 0.3s;
-}
-
-.btn-elimina:hover {
-    background-color: darkred;
-    color: white;
-}
-
 .stella-piena {
     color: goldenrod;
 }
@@ -95,4 +80,59 @@ body {
     background-color: #bcbcbc;
     color: #222937;
     transform: scale(1.2);
+}
+
+.link-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.link-modifica {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #3182ce;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px 2px rgba(49, 130, 206, 0.3);
+}
+
+.link-modifica:hover {
+    background-color: #266093;
+    transform: scale(1.1);
+}
+
+.btn-elimina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #b8b8b8;
+    border: 2px solid red;
+    border-radius: 25px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 0 5px 5px rgb(110 32 32 / 0.5);
+    cursor: pointer;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.btn-elimina:hover {
+    background-color: darkred;
+    color: white;
+    transform: scale(1.1);
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifica Recensione</title>
+    
+    <link rel="stylesheet" th:href="@{/css/modifica-recensione.css}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <div class="all-container">
+        
+        <h1 class="scritta">Modifica La Recensione</h1>
+        
+        <div class="card-container">
+            <form th:action="@{/r/{recensioneId}/modifica(recensioneId=${recensione.id})}" th:object="${recensione}" method="POST">
+                
+                <div class="form-group">
+                    <label for="corpo">Corpo Recensione:</label>
+                    <textarea id="corpo" class="form-field textarea-field" th:text="${recensione.testo}" th:field="*{testo}" placeholder="Scrivi il corpo della recensione" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="voto">Voto da 1 a 5:</label>
+                    <input id="voto" class="form-field" type="number" min="1" max="5" th:field="*{stelle}" placeholder="Es. 4" required>
+                </div>
+                
+                <button type="submit" class="btn-principale">
+                    <i class="fa-solid fa-check"></i> Conferma Modifiche
+                </button>
+            
+            </form>
+        </div>
+        
+        <a th:href="@{/recensioni}" class="link">
+            <i class="fa-solid fa-xmark"></i> Annulla
+        </a>
+    
+    </div>
+
+</body>
+</html>

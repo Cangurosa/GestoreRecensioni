@@ -1,5 +1,6 @@
 package it.uniroma3.siw.recensioni.service;
 
+import ch.qos.logback.classic.model.ReceiverModel;
 import it.uniroma3.siw.recensioni.model.Contenuto;
 import it.uniroma3.siw.recensioni.model.Recensione;
 import it.uniroma3.siw.recensioni.model.Utente;
@@ -21,6 +22,10 @@ public class RecensioneService {
         this.recensioneRepository = recensioneRepository;
         this.utenteRepository = utenteRepository;
         this.contenutoRepository = contenutoRepository;
+    }
+
+    public Recensione findRecensioneById(Long idRecensione) {
+        return recensioneRepository.findById(idRecensione).orElseThrow();
     }
 
     public List<Recensione> getAllRecensioniDellUtente(String username){

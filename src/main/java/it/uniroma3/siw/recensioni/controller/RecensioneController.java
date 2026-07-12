@@ -7,6 +7,7 @@ import it.uniroma3.siw.recensioni.repository.ContenutoRepository;
 import it.uniroma3.siw.recensioni.repository.UtenteRepository;
 import it.uniroma3.siw.recensioni.service.ContenutoService;
 import it.uniroma3.siw.recensioni.service.RecensioneService;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +67,37 @@ public class RecensioneController {
     public String eliminaRecensione(@PathVariable Long id) {
         this.recensioneService.eliminaRecensione(id);
         return "redirect:/listaContenuti";
+    }
+
+    @GetMapping("/r/{recensioneId}/modifica")
+    public String apriFormModificaRecensione(@PathVariable("recensioneId") Long idRecensione,Model model, Principal principal) {
+        String usernameLoggato=principal.getName();
+        Recensione recensione=recensioneService.findRecensioneById(idRecensione);
+
+        if(!recensione.getUtente().getUsername().equals(usernameLoggato)) {
+            return "redirect:/recensioni";
+        }
+
+        model.addAttribute("recensione", recensione);
+
+        return "form-modifica-recensione";
+    }
+
+    @PostMapping("/r/{recensioneId}/modifica")
+    public String modificaRecensione(@PathVariable("recensioneId") Long idRecensione, @ModelAttribute("recensione") Recensione recensioneForm, Principal principal) {
+        String usernameLoggato=principal.getName();
+        Recensione recensioneOriginale=recensioneService.findRecensioneById(idRecensione);
+
+        if(!recensioneOriginale.getUtente().getUsername().equals(usernameLoggato)) {
+            return "redirect:/recensioni";
+        }
+
+        recensioneOriginale.setTesto(recensioneForm.getTesto());
+        recensioneOriginale.setStelle(recensioneForm.getStelle());
+
+        recensioneService.salvaRecensione(recensioneOriginale, principal.getName(), recensioneOriginale.getContenuto().getId());
+
+        return "redirect:/recensioni";
     }
 
     @GetMapping("/recensioni/cerca")
